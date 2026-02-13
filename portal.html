@@ -381,11 +381,16 @@
         }
 
         .deliverable {
-            padding: 32px;
+            display: grid;
+            grid-template-columns: 1fr 160px;
             background: var(--card);
             border: 1px solid var(--muted-border);
             transition: all 0.25s ease;
             position: relative;
+        }
+
+        @media (max-width: 768px) {
+            .deliverable { grid-template-columns: 1fr; }
         }
 
         .deliverable:hover {
@@ -398,12 +403,8 @@
             background: linear-gradient(135deg, var(--card) 0%, #FFF5F5 100%);
         }
 
-        .deliverable-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 16px;
-            margin-bottom: 10px;
+        .deliverable-content {
+            padding: 28px 32px;
         }
 
         .deliverable-num {
@@ -413,15 +414,8 @@
             font-weight: 500;
             background: var(--red-glow);
             padding: 3px 8px;
-            flex-shrink: 0;
-        }
-
-        .deliverable-value {
-            font-family: 'DM Mono', monospace;
-            font-size: 12px;
-            color: var(--muted);
-            text-decoration: line-through;
-            flex-shrink: 0;
+            display: inline-block;
+            margin-bottom: 10px;
         }
 
         .deliverable h3 {
@@ -435,6 +429,45 @@
             font-size: 14px;
             color: var(--muted);
             line-height: 1.6;
+        }
+
+        .deliverable-price-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-left: 1px dashed var(--muted-border);
+            padding: 24px 16px;
+            text-align: center;
+            background: var(--secondary);
+        }
+
+        @media (max-width: 768px) {
+            .deliverable-price-col {
+                border-left: none;
+                border-top: 1px dashed var(--muted-border);
+                flex-direction: row;
+                justify-content: center;
+                gap: 8px;
+                padding: 16px;
+            }
+        }
+
+        .deliverable-price-col .price-amount {
+            font-family: 'DM Mono', monospace;
+            font-size: 22px;
+            font-weight: 500;
+            color: var(--fg);
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .deliverable-price-col .price-label {
+            font-family: 'DM Mono', monospace;
+            font-size: 10px;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
         }
 
         .deliverable details {
@@ -504,32 +537,23 @@
         }
 
         .value-stack-header {
-            padding: 20px 32px;
+            padding: 16px 32px;
             border-bottom: 1px solid var(--muted-border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
         }
 
         .value-stack-header h3 {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.04em;
-        }
-
-        .value-stack-total {
-            font-family: 'DM Mono', monospace;
-            font-size: 14px;
             color: var(--muted);
-            text-decoration: line-through;
         }
 
         .value-stack-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 32px;
+            padding: 10px 32px;
             border-bottom: 1px dashed var(--muted-border);
             font-size: 14px;
         }
@@ -544,29 +568,52 @@
         }
 
         .value-stack-bottom {
-            padding: 24px 32px;
+            padding: 28px 32px;
             background: var(--fg);
             color: white;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
         }
 
-        .value-stack-bottom .your-price-label {
-            font-size: 14px;
-            color: #A1A1AA;
+        .value-stack-bottom .price-compare {
+            display: flex;
+            align-items: baseline;
+            gap: 16px;
         }
 
-        .value-stack-bottom .your-price-label strong {
-            color: white;
-            font-size: 16px;
+        .value-stack-bottom .was-price {
+            font-family: 'DM Mono', monospace;
+            font-size: 28px;
+            font-weight: 500;
+            color: #71717A;
+            position: relative;
+        }
+
+        .value-stack-bottom .was-price::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: -4px;
+            right: -4px;
+            height: 3px;
+            background: var(--red);
+            transform: rotate(-3deg);
         }
 
         .value-stack-bottom .your-price {
             font-family: 'DM Mono', monospace;
-            font-size: 32px;
+            font-size: 40px;
             font-weight: 500;
             color: var(--red);
+            line-height: 1;
+        }
+
+        .value-stack-bottom .your-price-label {
+            font-size: 13px;
+            color: #A1A1AA;
         }
 
         /* ---- BEFORE / AFTER ---- */
@@ -729,14 +776,31 @@
             letter-spacing: -0.01em;
         }
 
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 32px;
+            align-items: start;
+        }
+
+        @media (max-width: 900px) {
+            .pricing-grid { grid-template-columns: 1fr; }
+        }
+
         .price-card {
             border: 2px solid var(--red);
-            padding: 40px;
-            max-width: 560px;
-            margin-bottom: 40px;
-            position: relative;
+            padding: 36px;
+            position: sticky;
+            top: 80px;
             background: var(--card);
             box-shadow: 0 8px 32px var(--red-glow);
+        }
+
+        @media (max-width: 900px) {
+            .price-card {
+                position: static;
+                order: -1;
+            }
         }
 
         .price-badge {
@@ -800,12 +864,12 @@
 
         .addon-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(2, 1fr);
             gap: 12px;
         }
 
-        @media (max-width: 768px) {
-            .addon-grid { grid-template-columns: repeat(2, 1fr); }
+        @media (max-width: 480px) {
+            .addon-grid { grid-template-columns: 1fr; }
         }
 
         .addon-card {
@@ -1076,84 +1140,102 @@
         <div class="deliverables">
             <!-- FEATURED: Market Research -->
             <div class="deliverable featured">
-                <div class="deliverable-header">
+                <div class="deliverable-content">
                     <span class="deliverable-num">01</span>
-                    <span class="deliverable-value">$2,500</span>
+                    <h3>Market Research</h3>
+                    <p>We analysed <strong>9 competitors</strong> and <strong>5 cross-industry sites</strong> to understand exactly where TIC sits in Brisbane's insurance broker market — and where the gap is.</p>
+                    <details open>
+                        <summary>Competitive landscape</summary>
+                        <div class="detail-content">
+                            <ul>
+                                <li><strong>GSA Insurance Brokers</strong> — your design benchmark. Custom Webflow build, professional photography, Georgia serif. The only Brisbane broker with a genuinely good website. We built yours to be better.</li>
+                                <li><strong>Priority Insurance Brokers</strong> — your closest niche competitor (demolition/asbestos). Basic site, no distinctive design. We confirmed TIC can dominate this niche visually.</li>
+                                <li><strong>Benjamin & Benjamin</strong> — boutique coral accent, family heritage positioning. Showed us what personality looks like in insurance.</li>
+                                <li><strong>Lemonade, Kin, Clearcover</strong> — international disruptors breaking every insurance convention. We studied their boldest moves and applied the thinking to your market.</li>
+                                <li><strong>5 cross-industry sites</strong> — architecture firms, premium plumbers, design studios. We looked outside insurance to find how trades and industrial businesses present premium quality.</li>
+                            </ul>
+                        </div>
+                    </details>
                 </div>
-                <h3>Market Research</h3>
-                <p>We analysed 9 competitors and 5 cross-industry sites to understand exactly where TIC sits in Brisbane's insurance broker market — and where the gap is.</p>
-                <details open>
-                    <summary>What we found</summary>
-                    <div class="detail-content">
-                        <ul>
-                            <li><strong>GSA Insurance Brokers</strong> — your design benchmark. Custom Webflow build, professional photography, Georgia serif. The only Brisbane broker with a genuinely good website. We built yours to be better.</li>
-                            <li><strong>Priority Insurance Brokers</strong> — your closest niche competitor (demolition/asbestos). Basic site, no distinctive design. We confirmed TIC can dominate this niche visually.</li>
-                            <li><strong>Benjamin & Benjamin</strong> — boutique coral accent, family heritage positioning. Showed us what personality looks like in insurance.</li>
-                            <li><strong>Lemonade, Kin, Clearcover</strong> — international disruptors breaking every insurance convention. We studied their boldest moves and applied the thinking to your market.</li>
-                            <li><strong>5 cross-industry sites</strong> — architecture firms, premium plumbers, design studios. We looked outside insurance to find how trades and industrial businesses present premium quality.</li>
-                        </ul>
-                    </div>
-                </details>
+                <div class="deliverable-price-col">
+                    <span class="price-amount">$2,500</span>
+                    <span class="price-label">value</span>
+                </div>
             </div>
 
             <!-- FEATURED: Creative Direction -->
             <div class="deliverable featured">
-                <div class="deliverable-header">
+                <div class="deliverable-content">
                     <span class="deliverable-num">02</span>
-                    <span class="deliverable-value">$3,000</span>
+                    <h3>Creative Direction & Strategy</h3>
+                    <p>We designed <strong>3 genuinely different directions</strong> for TIC — not colour variations, but fundamentally different approaches to how your business presents online.</p>
+                    <details open>
+                        <summary>The 3 directions we explored</summary>
+                        <div class="detail-content">
+                            <ul>
+                                <li><strong>"Industrial Editorial"</strong> — Full-bleed photography with cinematic dark overlays. Documentary-style scroll. Inspired by Gensler and MNML Studio. Stunning, but requires professional photography TIC doesn't have yet. Shelved — not rejected.</li>
+                                <li><strong>"The Dashboard"</strong> — Data-first homepage leading with metrics: 25+ years, 7 industries, AFSL number. Navy + rust, monospace typography. Perfect for analytical CFOs, but felt too corporate for demolition company owners.</li>
+                                <li><strong>"Hard Hat" (selected)</strong> — Dark mode with safety amber. Built in the visual language of the jobsite. Every Brisbane insurance broker has a light, blue, corporate site. We went the opposite direction.</li>
+                            </ul>
+                        </div>
+                    </details>
                 </div>
-                <h3>Creative Direction & Strategy</h3>
-                <p>We designed 3 genuinely different directions for TIC — not colour variations, but fundamentally different approaches to how your business presents online. Then we chose the one that gives you the biggest competitive edge.</p>
-                <details open>
-                    <summary>The 3 directions we explored</summary>
-                    <div class="detail-content">
-                        <ul>
-                            <li><strong>"Industrial Editorial"</strong> — Full-bleed photography with cinematic dark overlays. Documentary-style scroll. Inspired by Gensler and MNML Studio. Stunning, but requires professional photography TIC doesn't have yet. Shelved — not rejected.</li>
-                            <li><strong>"The Dashboard"</strong> — Data-first homepage leading with metrics: 25+ years, 7 industries, AFSL number. Navy + rust, monospace typography. Perfect for analytical CFOs, but felt too corporate for demolition company owners.</li>
-                            <li><strong>"Hard Hat" (selected)</strong> — Dark mode with safety amber. Built in the visual language of the jobsite. Every Brisbane insurance broker has a light, blue, corporate site. We went the opposite direction. When a site manager opens this, they see their world — not a bank's.</li>
-                        </ul>
-                    </div>
-                </details>
+                <div class="deliverable-price-col">
+                    <span class="price-amount">$3,000</span>
+                    <span class="price-label">value</span>
+                </div>
             </div>
 
             <!-- Brand System -->
             <div class="deliverable">
-                <div class="deliverable-header">
+                <div class="deliverable-content">
                     <span class="deliverable-num">03</span>
-                    <span class="deliverable-value">$1,500</span>
+                    <h3>Brand System</h3>
+                    <p>Charcoal backgrounds because your clients work on dark sites. Safety amber from hi-vis gear. Industrial typography that reads like equipment signage, not a bank brochure.</p>
                 </div>
-                <h3>Brand System</h3>
-                <p>Charcoal backgrounds because your clients work on dark sites. Safety amber accents pulled from hi-vis gear. Barlow Condensed typography that reads like industrial signage, not a bank brochure. Every choice designed to say "this broker gets our industry" before a single word is read.</p>
+                <div class="deliverable-price-col">
+                    <span class="price-amount">$1,500</span>
+                    <span class="price-label">value</span>
+                </div>
             </div>
 
             <!-- Custom Website -->
             <div class="deliverable">
-                <div class="deliverable-header">
+                <div class="deliverable-content">
                     <span class="deliverable-num">04</span>
-                    <span class="deliverable-value">$5,000</span>
+                    <h3>Custom Website Build</h3>
+                    <p>Responsive, production-ready. Real testimonials from <strong>Maleny Dairies</strong>, <strong>Baxters</strong>, and <strong>Jamcha</strong>. <strong>6 industries</strong> with specific coverage language. Animated hero. Built from scratch.</p>
                 </div>
-                <h3>Custom Website Build</h3>
-                <p>Responsive, fast, production-ready. Your real testimonials from Maleny Dairies, Baxters, and Jamcha. Your real AFSL, DAIA, and Steadfast credentials. Six industries with specific coverage language. Animated hero that cycles through your specialisations. Not a template — built from scratch for TIC.</p>
+                <div class="deliverable-price-col">
+                    <span class="price-amount">$5,000</span>
+                    <span class="price-label">value</span>
+                </div>
             </div>
 
             <!-- Industry Copy -->
             <div class="deliverable">
-                <div class="deliverable-header">
+                <div class="deliverable-content">
                     <span class="deliverable-num">05</span>
-                    <span class="deliverable-value">$2,500</span>
+                    <h3>Industry Copywriting</h3>
+                    <p>Written for construction managers, demolition owners, and earthmoving operators. Problem-first structure. Mitchell's name and direct phone number on the CTA. No generic copy.</p>
                 </div>
-                <h3>Industry Copywriting</h3>
-                <p>Every line written for construction managers, demolition owners, and earthmoving operators. Problem-first structure — "rejected by mainstream insurers," "policies full of hidden exclusions." CTA uses Mitchell's name and direct phone number. No generic "tailored solutions" copy.</p>
+                <div class="deliverable-price-col">
+                    <span class="price-amount">$2,500</span>
+                    <span class="price-label">value</span>
+                </div>
             </div>
 
             <!-- Conversion Flow -->
             <div class="deliverable">
-                <div class="deliverable-header">
+                <div class="deliverable-content">
                     <span class="deliverable-num">06</span>
-                    <span class="deliverable-value">$1,500</span>
+                    <h3>Conversion Architecture</h3>
+                    <p>Visitors see their industry within <strong>3 seconds</strong>. Pain validates frustration. Credentials build proof. CTA is a phone call — how your clients prefer to engage.</p>
                 </div>
-                <h3>Conversion Architecture</h3>
-                <p>Visitors see their industry within 3 seconds. Pain section validates frustration. Credentials and testimonials build proof before we ask for anything. Final CTA is a phone call — matches how your clients prefer to engage.</p>
+                <div class="deliverable-price-col">
+                    <span class="price-amount">$1,500</span>
+                    <span class="price-label">value</span>
+                </div>
             </div>
         </div>
 
@@ -1161,7 +1243,6 @@
         <div class="value-stack">
             <div class="value-stack-header">
                 <h3>What this would cost separately</h3>
-                <span class="value-stack-total">$16,000</span>
             </div>
             <div class="value-stack-row"><span class="item-name">Market Research (9 competitors + 5 cross-industry)</span><span class="item-value">$2,500</span></div>
             <div class="value-stack-row"><span class="item-name">Creative Direction & Strategy (3 directions)</span><span class="item-value">$3,000</span></div>
@@ -1170,8 +1251,13 @@
             <div class="value-stack-row"><span class="item-name">Industry Copywriting</span><span class="item-value">$2,500</span></div>
             <div class="value-stack-row"><span class="item-name">Conversion Architecture</span><span class="item-value">$1,500</span></div>
             <div class="value-stack-bottom">
-                <div class="your-price-label">Everything above, bundled.<br><strong>Your price:</strong></div>
-                <div class="your-price">$3,000</div>
+                <div>
+                    <div class="your-price-label">Everything above, bundled. Your price:</div>
+                </div>
+                <div class="price-compare">
+                    <span class="was-price">$16,000</span>
+                    <span class="your-price">$3,000</span>
+                </div>
             </div>
         </div>
     </div>
@@ -1209,51 +1295,54 @@
         <span class="label">Investment</span>
         <h2>Take this site live</h2>
 
-        <div class="price-card">
-            <div class="price-badge">Built for TIC</div>
-            <div class="was">$16,000 if purchased separately</div>
-            <div class="price">$3,000</div>
-            <div class="price-note">One-time payment. Everything above — research, strategy, brand, build, deployment — is already done.</div>
-            <ul class="price-includes">
-                <li>All 6 deliverables above (already completed)</li>
-                <li>Hosting setup (Vercel, auto-deploys from day one)</li>
-                <li>Source code — you own everything, no lock-in</li>
-                <li>30-day revision window</li>
-                <li>All research data available for future campaigns</li>
-            </ul>
-            <a href="mailto:elliot@unpaste.co?subject=TIC%20Insurance%20-%20Website%20Inquiry" class="btn-red">Reply to claim this site</a>
-        </div>
-
-        <div class="addons">
-            <h3>Ongoing growth add-ons</h3>
-            <div class="addon-grid">
-                <div class="addon-card">
-                    <h4>AI Chatbot</h4>
-                    <div class="addon-price">$200/mo</div>
-                    <p>24/7 quote assistant that captures leads and answers insurance questions.</p>
+        <div class="pricing-grid">
+            <div class="addons">
+                <h3>Ongoing growth add-ons</h3>
+                <p style="font-size: 14px; color: var(--muted); margin-bottom: 20px;">Use the research and brand system we've already built for ongoing marketing.</p>
+                <div class="addon-grid">
+                    <div class="addon-card">
+                        <h4>AI Chatbot</h4>
+                        <div class="addon-price">$200/mo</div>
+                        <p>24/7 quote assistant that captures leads and answers insurance questions.</p>
+                    </div>
+                    <div class="addon-card">
+                        <h4>SEO</h4>
+                        <div class="addon-price">$300/mo</div>
+                        <p>Monthly content, technical SEO, local search for Brisbane insurance keywords.</p>
+                    </div>
+                    <div class="addon-card">
+                        <h4>Social Media</h4>
+                        <div class="addon-price">$400/mo</div>
+                        <p>Content calendar, post creation, and management for LinkedIn + Facebook.</p>
+                    </div>
+                    <div class="addon-card">
+                        <h4>Paid Ads</h4>
+                        <div class="addon-price">$500/mo</div>
+                        <p>Google Ads + Meta campaigns targeting Brisbane businesses.</p>
+                    </div>
                 </div>
-                <div class="addon-card">
-                    <h4>SEO</h4>
-                    <div class="addon-price">$300/mo</div>
-                    <p>Monthly content, technical SEO, local search for Brisbane insurance keywords.</p>
-                </div>
-                <div class="addon-card">
-                    <h4>Social Media</h4>
-                    <div class="addon-price">$400/mo</div>
-                    <p>Content calendar, post creation, and management for LinkedIn + Facebook.</p>
-                </div>
-                <div class="addon-card">
-                    <h4>Paid Ads</h4>
-                    <div class="addon-price">$500/mo</div>
-                    <p>Google Ads + Meta campaigns targeting Brisbane businesses.</p>
+                <div class="addon-full">
+                    <div class="addon-full-left">
+                        <h4>Full Marketing Suite</h4>
+                        <div class="savings">All four add-ons bundled. Everything TIC needs to grow online.</div>
+                    </div>
+                    <div class="addon-price">$1,200/mo <small>(save $200)</small></div>
                 </div>
             </div>
-            <div class="addon-full">
-                <div class="addon-full-left">
-                    <h4>Full Marketing Suite</h4>
-                    <div class="savings">All four add-ons bundled. Everything TIC needs to grow online.</div>
-                </div>
-                <div class="addon-price">$1,200/mo <small>(save $200)</small></div>
+
+            <div class="price-card">
+                <div class="price-badge">Built for TIC</div>
+                <div class="was">$16,000 if purchased separately</div>
+                <div class="price">$3,000</div>
+                <div class="price-note">One-time. Everything is already done.</div>
+                <ul class="price-includes">
+                    <li>All 6 deliverables (completed)</li>
+                    <li>Hosting setup + auto-deploys</li>
+                    <li>Source code — you own everything</li>
+                    <li>30-day revision window</li>
+                    <li>Research data for future campaigns</li>
+                </ul>
+                <a href="mailto:elliot@unpaste.co?subject=TIC%20Insurance%20-%20Website%20Inquiry" class="btn-red" style="display:block; text-align:center;">Claim this site</a>
             </div>
         </div>
     </div>
