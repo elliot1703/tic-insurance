@@ -375,55 +375,72 @@
         }
 
         .deliverables {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1px;
-            background: var(--muted-border);
-            border: 1px solid var(--muted-border);
-        }
-
-        @media (max-width: 768px) {
-            .deliverables { grid-template-columns: 1fr; }
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
         }
 
         .deliverable {
-            padding: 28px;
+            padding: 32px;
             background: var(--card);
+            border: 1px solid var(--muted-border);
             transition: all 0.25s ease;
             position: relative;
         }
 
         .deliverable:hover {
-            background: var(--secondary);
+            border-color: #D4D4D8;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
         }
 
-        .deliverable::before {
-            content: attr(data-num);
+        .deliverable.featured {
+            border-left: 3px solid var(--red);
+            background: linear-gradient(135deg, var(--card) 0%, #FFF5F5 100%);
+        }
+
+        .deliverable-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 10px;
+        }
+
+        .deliverable-num {
             font-family: 'DM Mono', monospace;
             font-size: 11px;
             color: var(--red);
             font-weight: 500;
-            display: block;
-            margin-bottom: 12px;
+            background: var(--red-glow);
+            padding: 3px 8px;
+            flex-shrink: 0;
+        }
+
+        .deliverable-value {
+            font-family: 'DM Mono', monospace;
+            font-size: 12px;
+            color: var(--muted);
+            text-decoration: line-through;
+            flex-shrink: 0;
         }
 
         .deliverable h3 {
-            font-size: 15px;
+            font-size: 18px;
             font-weight: 700;
             margin-bottom: 8px;
             letter-spacing: -0.01em;
         }
 
         .deliverable p {
-            font-size: 13px;
+            font-size: 14px;
             color: var(--muted);
-            line-height: 1.55;
+            line-height: 1.6;
         }
 
         .deliverable details {
-            margin-top: 12px;
+            margin-top: 14px;
             border-top: 1px dashed var(--muted-border);
-            padding-top: 10px;
+            padding-top: 12px;
         }
 
         .deliverable details summary {
@@ -453,7 +470,7 @@
 
         .deliverable details .detail-content {
             margin-top: 10px;
-            font-size: 12px;
+            font-size: 13px;
             color: var(--muted);
             line-height: 1.6;
         }
@@ -465,8 +482,8 @@
         }
 
         .deliverable details .detail-content li {
-            padding: 3px 0;
-            padding-left: 14px;
+            padding: 4px 0;
+            padding-left: 16px;
             position: relative;
         }
 
@@ -476,7 +493,80 @@
             left: 0;
             color: var(--red);
             font-family: 'DM Mono', monospace;
-            font-size: 10px;
+            font-size: 11px;
+        }
+
+        /* ---- VALUE STACK ---- */
+        .value-stack {
+            margin-top: 40px;
+            border: 2px solid var(--muted-border);
+            background: var(--card);
+        }
+
+        .value-stack-header {
+            padding: 20px 32px;
+            border-bottom: 1px solid var(--muted-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .value-stack-header h3 {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .value-stack-total {
+            font-family: 'DM Mono', monospace;
+            font-size: 14px;
+            color: var(--muted);
+            text-decoration: line-through;
+        }
+
+        .value-stack-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 32px;
+            border-bottom: 1px dashed var(--muted-border);
+            font-size: 14px;
+        }
+
+        .value-stack-row:last-child { border-bottom: none; }
+
+        .value-stack-row .item-name { color: var(--fg); }
+
+        .value-stack-row .item-value {
+            font-family: 'DM Mono', monospace;
+            color: var(--muted);
+        }
+
+        .value-stack-bottom {
+            padding: 24px 32px;
+            background: var(--fg);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .value-stack-bottom .your-price-label {
+            font-size: 14px;
+            color: #A1A1AA;
+        }
+
+        .value-stack-bottom .your-price-label strong {
+            color: white;
+            font-size: 16px;
+        }
+
+        .value-stack-bottom .your-price {
+            font-family: 'DM Mono', monospace;
+            font-size: 32px;
+            font-weight: 500;
+            color: var(--red);
         }
 
         /* ---- BEFORE / AFTER ---- */
@@ -984,95 +1074,104 @@
         <span class="label">What's included</span>
         <h2>Everything we built for TIC</h2>
         <div class="deliverables">
-            <div class="deliverable" data-num="01">
+            <!-- FEATURED: Market Research -->
+            <div class="deliverable featured">
+                <div class="deliverable-header">
+                    <span class="deliverable-num">01</span>
+                    <span class="deliverable-value">$2,500</span>
+                </div>
                 <h3>Market Research</h3>
-                <p>9 competitors analysed across Brisbane's insurance broker market — positioning, pricing, and digital presence.</p>
-                <details>
-                    <summary>See what we found</summary>
+                <p>We analysed 9 competitors and 5 cross-industry sites to understand exactly where TIC sits in Brisbane's insurance broker market — and where the gap is.</p>
+                <details open>
+                    <summary>What we found</summary>
                     <div class="detail-content">
                         <ul>
-                            <li>GSA Insurance Brokers — the design benchmark. Custom Webflow build, Georgia serif, professional photography. Your target to beat.</li>
-                            <li>Priority Insurance Brokers — your closest niche competitor (demolition/asbestos). Basic site with no distinctive design. Easy to outperform.</li>
-                            <li>Benjamin & Benjamin — boutique coral accent, family heritage positioning. Shows what personality looks like in insurance.</li>
-                            <li>Lemonade, Kin, Clearcover — international disruptors. We studied how they break category conventions.</li>
-                            <li>5 cross-industry sites (architecture, plumbing, design studios) — inspiration for how trades and industrial businesses present premium.</li>
+                            <li><strong>GSA Insurance Brokers</strong> — your design benchmark. Custom Webflow build, professional photography, Georgia serif. The only Brisbane broker with a genuinely good website. We built yours to be better.</li>
+                            <li><strong>Priority Insurance Brokers</strong> — your closest niche competitor (demolition/asbestos). Basic site, no distinctive design. We confirmed TIC can dominate this niche visually.</li>
+                            <li><strong>Benjamin & Benjamin</strong> — boutique coral accent, family heritage positioning. Showed us what personality looks like in insurance.</li>
+                            <li><strong>Lemonade, Kin, Clearcover</strong> — international disruptors breaking every insurance convention. We studied their boldest moves and applied the thinking to your market.</li>
+                            <li><strong>5 cross-industry sites</strong> — architecture firms, premium plumbers, design studios. We looked outside insurance to find how trades and industrial businesses present premium quality.</li>
                         </ul>
                     </div>
                 </details>
             </div>
-            <div class="deliverable" data-num="02">
+
+            <!-- FEATURED: Creative Direction -->
+            <div class="deliverable featured">
+                <div class="deliverable-header">
+                    <span class="deliverable-num">02</span>
+                    <span class="deliverable-value">$3,000</span>
+                </div>
+                <h3>Creative Direction & Strategy</h3>
+                <p>We designed 3 genuinely different directions for TIC — not colour variations, but fundamentally different approaches to how your business presents online. Then we chose the one that gives you the biggest competitive edge.</p>
+                <details open>
+                    <summary>The 3 directions we explored</summary>
+                    <div class="detail-content">
+                        <ul>
+                            <li><strong>"Industrial Editorial"</strong> — Full-bleed photography with cinematic dark overlays. Documentary-style scroll. Inspired by Gensler and MNML Studio. Stunning, but requires professional photography TIC doesn't have yet. Shelved — not rejected.</li>
+                            <li><strong>"The Dashboard"</strong> — Data-first homepage leading with metrics: 25+ years, 7 industries, AFSL number. Navy + rust, monospace typography. Perfect for analytical CFOs, but felt too corporate for demolition company owners.</li>
+                            <li><strong>"Hard Hat" (selected)</strong> — Dark mode with safety amber. Built in the visual language of the jobsite. Every Brisbane insurance broker has a light, blue, corporate site. We went the opposite direction. When a site manager opens this, they see their world — not a bank's.</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+
+            <!-- Brand System -->
+            <div class="deliverable">
+                <div class="deliverable-header">
+                    <span class="deliverable-num">03</span>
+                    <span class="deliverable-value">$1,500</span>
+                </div>
                 <h3>Brand System</h3>
-                <p>Colours, typography, and voice extracted from your existing presence — then elevated to match a 25-year, AFSL-licensed broker.</p>
-                <details>
-                    <summary>See the choices</summary>
-                    <div class="detail-content">
-                        <ul>
-                            <li>Charcoal #1C1C1E — dark base inspired by jobsite environments. Your clients work in dark, dusty, industrial spaces.</li>
-                            <li>Safety Amber #E8A838 — pulled from hi-vis gear. Instantly says "construction" without a stock photo.</li>
-                            <li>Barlow Condensed 800 — industrial signage typography. Bold, condensed, uppercase. Looks like equipment labels, not a bank.</li>
-                            <li>Rust #C8502D — warm secondary connecting to your demolition site identity.</li>
-                        </ul>
-                    </div>
-                </details>
+                <p>Charcoal backgrounds because your clients work on dark sites. Safety amber accents pulled from hi-vis gear. Barlow Condensed typography that reads like industrial signage, not a bank brochure. Every choice designed to say "this broker gets our industry" before a single word is read.</p>
             </div>
-            <div class="deliverable" data-num="03">
-                <h3>Creative Direction</h3>
-                <p>3 genuinely different directions designed and evaluated. "Hard Hat" selected — no other broker in Australia looks like this.</p>
-                <details>
-                    <summary>See all 3 directions</summary>
-                    <div class="detail-content">
-                        <ul>
-                            <li><strong>Direction 1: "Industrial Editorial"</strong> — Full-bleed photography, cinematic dark overlays, documentary-style scroll. Inspired by Gensler and MNML Studio. Beautiful, but needs professional photography you don't have yet.</li>
-                            <li><strong>Direction 2: "The Dashboard"</strong> — Data-first layout. Opens with metrics instead of a hero image. Navy + rust, Space Grotesk font. Great for analytical CFO types, but felt too corporate for your tradie audience.</li>
-                            <li><strong>Direction 3: "Hard Hat"</strong> — Dark mode with safety amber. Built in the visual language of the jobsite. Selected because it speaks directly to demolition and construction owners, breaks every insurance broker convention, and needs zero stock photography.</li>
-                        </ul>
-                    </div>
-                </details>
+
+            <!-- Custom Website -->
+            <div class="deliverable">
+                <div class="deliverable-header">
+                    <span class="deliverable-num">04</span>
+                    <span class="deliverable-value">$5,000</span>
+                </div>
+                <h3>Custom Website Build</h3>
+                <p>Responsive, fast, production-ready. Your real testimonials from Maleny Dairies, Baxters, and Jamcha. Your real AFSL, DAIA, and Steadfast credentials. Six industries with specific coverage language. Animated hero that cycles through your specialisations. Not a template — built from scratch for TIC.</p>
             </div>
-            <div class="deliverable" data-num="04">
-                <h3>Custom Website</h3>
-                <p>Responsive landing page with your real testimonials, real credentials, real industry specialisations. Not a template.</p>
-                <details>
-                    <summary>See what's included</summary>
-                    <div class="detail-content">
-                        <ul>
-                            <li>Animated hero cycling through your 6 industries — visitors see themselves immediately</li>
-                            <li>Real testimonials from Maleny Dairies (dairy manufacturing), Baxters (fleet & logistics), Jamcha (F&B operations)</li>
-                            <li>AFSL #237 572, DAIA, Steadfast credentials prominently displayed</li>
-                            <li>Demolition, construction, earthmoving, manufacturing, transport, NDIS/SDA — each with specific coverage language</li>
-                        </ul>
-                    </div>
-                </details>
+
+            <!-- Industry Copy -->
+            <div class="deliverable">
+                <div class="deliverable-header">
+                    <span class="deliverable-num">05</span>
+                    <span class="deliverable-value">$2,500</span>
+                </div>
+                <h3>Industry Copywriting</h3>
+                <p>Every line written for construction managers, demolition owners, and earthmoving operators. Problem-first structure — "rejected by mainstream insurers," "policies full of hidden exclusions." CTA uses Mitchell's name and direct phone number. No generic "tailored solutions" copy.</p>
             </div>
-            <div class="deliverable" data-num="05">
-                <h3>Industry Copy</h3>
-                <p>Every line written for construction managers, demolition owners, and earthmoving operators. Not generic insurance copy.</p>
-                <details>
-                    <summary>See the approach</summary>
-                    <div class="detail-content">
-                        <ul>
-                            <li>Problem-first structure: "rejected by mainstream insurers", "policies full of hidden exclusions" — real pain points from high-risk industries</li>
-                            <li>Industry-specific language: demolition insurance, earthmoving liability, construction PI — not "tailored solutions"</li>
-                            <li>CTA uses Mitchell's name and direct phone number — personal, not corporate</li>
-                        </ul>
-                    </div>
-                </details>
+
+            <!-- Conversion Flow -->
+            <div class="deliverable">
+                <div class="deliverable-header">
+                    <span class="deliverable-num">06</span>
+                    <span class="deliverable-value">$1,500</span>
+                </div>
+                <h3>Conversion Architecture</h3>
+                <p>Visitors see their industry within 3 seconds. Pain section validates frustration. Credentials and testimonials build proof before we ask for anything. Final CTA is a phone call — matches how your clients prefer to engage.</p>
             </div>
-            <div class="deliverable" data-num="06">
-                <h3>Conversion Flow</h3>
-                <p>Problem → solution → proof → process → CTA. Every section moves visitors toward requesting a free insurance review.</p>
-                <details>
-                    <summary>See the structure</summary>
-                    <div class="detail-content">
-                        <ul>
-                            <li>Hero hooks with industry cycling — visitor sees their industry within 3 seconds</li>
-                            <li>Pain section validates frustration — "finding insurance for high-risk industries shouldn't be this hard"</li>
-                            <li>Credentials + testimonials provide proof before asking for action</li>
-                            <li>3-step process reduces perceived complexity: learn your business → source coverage → advocate in claims</li>
-                            <li>Final CTA is a phone number, not a form — matches how your clients prefer to engage</li>
-                        </ul>
-                    </div>
-                </details>
+        </div>
+
+        <!-- VALUE STACK -->
+        <div class="value-stack">
+            <div class="value-stack-header">
+                <h3>What this would cost separately</h3>
+                <span class="value-stack-total">$16,000</span>
+            </div>
+            <div class="value-stack-row"><span class="item-name">Market Research (9 competitors + 5 cross-industry)</span><span class="item-value">$2,500</span></div>
+            <div class="value-stack-row"><span class="item-name">Creative Direction & Strategy (3 directions)</span><span class="item-value">$3,000</span></div>
+            <div class="value-stack-row"><span class="item-name">Brand System (palette, type, voice)</span><span class="item-value">$1,500</span></div>
+            <div class="value-stack-row"><span class="item-name">Custom Website Build</span><span class="item-value">$5,000</span></div>
+            <div class="value-stack-row"><span class="item-name">Industry Copywriting</span><span class="item-value">$2,500</span></div>
+            <div class="value-stack-row"><span class="item-name">Conversion Architecture</span><span class="item-value">$1,500</span></div>
+            <div class="value-stack-bottom">
+                <div class="your-price-label">Everything above, bundled.<br><strong>Your price:</strong></div>
+                <div class="your-price">$3,000</div>
             </div>
         </div>
     </div>
@@ -1112,18 +1211,15 @@
 
         <div class="price-card">
             <div class="price-badge">Built for TIC</div>
-            <div class="was">$8,000</div>
+            <div class="was">$16,000 if purchased separately</div>
             <div class="price">$3,000</div>
-            <div class="price-note">One-time. Includes everything above — research, brand, design, build, deployment.</div>
+            <div class="price-note">One-time payment. Everything above — research, strategy, brand, build, deployment — is already done.</div>
             <ul class="price-includes">
-                <li>Competitive market analysis (9 competitors mapped)</li>
-                <li>Brand guidelines document</li>
-                <li>3 creative directions (1 selected, built)</li>
-                <li>Custom responsive landing page</li>
-                <li>Industry-specific copywriting</li>
-                <li>Hosting setup (Vercel, auto-deploys)</li>
-                <li>Source code — you own everything</li>
+                <li>All 6 deliverables above (already completed)</li>
+                <li>Hosting setup (Vercel, auto-deploys from day one)</li>
+                <li>Source code — you own everything, no lock-in</li>
                 <li>30-day revision window</li>
+                <li>All research data available for future campaigns</li>
             </ul>
             <a href="mailto:elliot@unpaste.co?subject=TIC%20Insurance%20-%20Website%20Inquiry" class="btn-red">Reply to claim this site</a>
         </div>

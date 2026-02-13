@@ -969,8 +969,108 @@
     </div>
 </footer>
 
+<!-- ============================== UNPASTE BANNER ============================== -->
+<style>
+    .unpaste-banner {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 999;
+        background: #FAFAFA;
+        border-top: 2px solid #DC2626;
+        padding: 12px 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-family: 'Inter', -apple-system, sans-serif;
+        box-shadow: 0 -4px 24px rgba(0,0,0,0.12);
+        transform: translateY(100%);
+        transition: transform 0.4s ease;
+    }
+
+    .unpaste-banner.visible { transform: translateY(0); }
+
+    .unpaste-banner-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 13px;
+        color: #09090B;
+    }
+
+    .unpaste-banner-left .ub-mark {
+        width: 16px;
+        height: 16px;
+        background: #DC2626;
+        flex-shrink: 0;
+    }
+
+    .unpaste-banner-left strong { font-weight: 600; }
+
+    .unpaste-banner-left span { color: #71717A; }
+
+    .unpaste-banner-right {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .unpaste-banner-right .ub-link {
+        font-family: 'DM Mono', monospace;
+        font-size: 12px;
+        font-weight: 500;
+        color: white;
+        background: #DC2626;
+        padding: 8px 16px;
+        text-decoration: none;
+        transition: background 0.2s;
+    }
+
+    .unpaste-banner-right .ub-link:hover { background: #B91C1C; }
+
+    .unpaste-banner-right .ub-dismiss {
+        background: none;
+        border: none;
+        font-size: 16px;
+        color: #71717A;
+        cursor: pointer;
+        padding: 4px;
+        line-height: 1;
+    }
+
+    .unpaste-banner-right .ub-dismiss:hover { color: #09090B; }
+
+    @media (max-width: 640px) {
+        .unpaste-banner { flex-direction: column; gap: 8px; text-align: center; }
+    }
+</style>
+
+<div class="unpaste-banner" id="unpasteBanner">
+    <div class="unpaste-banner-left">
+        <span class="ub-mark"></span>
+        <div><strong>This site was built for you by Unpaste.</strong> <span>Custom research, brand, and design — ready to go live.</span></div>
+    </div>
+    <div class="unpaste-banner-right">
+        <a href="portal.html" class="ub-link">See pricing & details &rarr;</a>
+        <button class="ub-dismiss" onclick="document.getElementById('unpasteBanner').style.display='none'" aria-label="Dismiss">&times;</button>
+    </div>
+</div>
+
 <!-- ============================== SCRIPT ============================== -->
 <script>
+    // Show banner after scrolling 40% of the page
+    let bannerShown = false;
+    window.addEventListener('scroll', () => {
+        if (bannerShown) return;
+        const h = document.documentElement;
+        const pct = h.scrollTop / (h.scrollHeight - h.clientHeight);
+        if (pct > 0.4) {
+            document.getElementById('unpasteBanner').classList.add('visible');
+            bannerShown = true;
+        }
+    });
+
     // Industry word cycler
     const words = ['Demolition', 'Construction', 'Earthmoving', 'Manufacturing', 'Transport', 'Asbestos Removal'];
     const el = document.getElementById('cycleWord');
