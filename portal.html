@@ -926,6 +926,63 @@
             font-weight: 400;
         }
 
+        /* ---- NEXT STEPS ---- */
+        .next-steps {
+            border-bottom: 1px solid var(--muted-border);
+            background: var(--secondary);
+        }
+
+        .next-steps h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 32px;
+            letter-spacing: -0.01em;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        @media (max-width: 768px) {
+            .steps-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+        }
+
+        @media (max-width: 480px) {
+            .steps-grid { grid-template-columns: 1fr; }
+        }
+
+        .step-item {
+            padding: 24px;
+            background: var(--card);
+            border: 1px solid var(--muted-border);
+            position: relative;
+        }
+
+        .step-item .step-num {
+            font-family: 'DM Mono', monospace;
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--red);
+            background: var(--red-glow);
+            padding: 3px 8px;
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+
+        .step-item h3 {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .step-item p {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
         /* ---- ABOUT ---- */
         .about-section {
             background: var(--fg);
@@ -1236,7 +1293,9 @@
         <div class="nav-right">
             <a href="mailto:elliot@unpaste.co" class="contact-link">elliot@unpaste.co</a>
             <a href="social-graphics.html" target="_blank" class="contact-link">Social Graphics</a>
-            <a href="index.html" target="_blank" class="nav-cta">View the site</a>
+            <a href="index.html" target="_blank" class="contact-link">View the site</a>
+            <!-- PLACEHOLDER: Replace href with Cal.com booking URL once Elliot creates it -->
+            <a href="https://cal.com/unpaste/15min" class="nav-cta">Book a Call</a>
         </div>
     </div>
 </header>
@@ -1251,7 +1310,7 @@
                 <p class="subtitle">We researched your market, extracted your brand, and built a custom site that positions TIC as Brisbane's specialist insurance broker. This isn't a template. It's yours.</p>
                 <div class="cta-group">
                     <a href="index.html" class="btn-red" target="_blank">View Your New Site</a>
-                    <a href="#pricing" class="btn-outline">See Pricing</a>
+                    <a href="https://cal.com/unpaste/15min" class="btn-outline" target="_blank">Book a Call</a>
                 </div>
             </div>
             <div>
@@ -1540,7 +1599,7 @@
                 </div>
                 <div class="price-compare">
                     <span class="was-price">$17,000</span>
-                    <span class="your-price">$3,000</span>
+                    <span class="your-price">$3,000 <small style="font-size: 16px; color: #A1A1AA; font-weight: 400;">+ GST</small></span>
                 </div>
             </div>
         </div>
@@ -1586,22 +1645,22 @@
                 <div class="addon-grid">
                     <div class="addon-card">
                         <h4>AI Chatbot</h4>
-                        <div class="addon-price">$200/mo</div>
+                        <div class="addon-price">$200/mo <small style="font-size:11px;color:var(--muted);font-weight:400;">+ GST</small></div>
                         <p>24/7 quote assistant that captures leads and answers insurance questions.</p>
                     </div>
                     <div class="addon-card">
                         <h4>SEO</h4>
-                        <div class="addon-price">$300/mo</div>
+                        <div class="addon-price">$300/mo <small style="font-size:11px;color:var(--muted);font-weight:400;">+ GST</small></div>
                         <p>Monthly content, technical SEO, local search for Brisbane insurance keywords.</p>
                     </div>
                     <div class="addon-card">
                         <h4>Social Media</h4>
-                        <div class="addon-price">$400/mo</div>
+                        <div class="addon-price">$400/mo <small style="font-size:11px;color:var(--muted);font-weight:400;">+ GST</small></div>
                         <p>Content calendar, post creation, and management for LinkedIn + Facebook.</p>
                     </div>
                     <div class="addon-card">
                         <h4>Paid Ads</h4>
-                        <div class="addon-price">$500/mo</div>
+                        <div class="addon-price">$500/mo <small style="font-size:11px;color:var(--muted);font-weight:400;">+ GST</small></div>
                         <p>Google Ads + Meta campaigns targeting Brisbane businesses.</p>
                     </div>
                 </div>
@@ -1610,14 +1669,14 @@
                         <h4>Full Marketing Suite</h4>
                         <div class="savings">All four add-ons bundled. Everything TIC needs to grow online.</div>
                     </div>
-                    <div class="addon-price">$1,200/mo <small>(save $200)</small></div>
+                    <div class="addon-price">$1,200/mo <small>+ GST (save $200)</small></div>
                 </div>
             </div>
 
             <div class="price-card">
                 <div class="price-badge">Built for TIC</div>
                 <div class="was">$17,000 if purchased separately</div>
-                <div class="price">$3,000</div>
+                <div class="price">$3,000 <span style="font-size: 16px; font-weight: 400; color: var(--muted);">+ GST</span></div>
                 <div class="price-note">One-time. Everything is already done.</div>
                 <ul class="price-includes">
                     <li>All 7 deliverables (completed)</li>
@@ -1626,7 +1685,39 @@
                     <li>30-day revision window</li>
                     <li>Research data for future campaigns</li>
                 </ul>
-                <a href="mailto:elliot@unpaste.co?subject=TIC%20Insurance%20-%20Website%20Inquiry" class="btn-red" style="display:block; text-align:center;">Claim this site</a>
+                <!-- PLACEHOLDER: Replace href with Cal.com booking URL once Elliot creates it -->
+                <a href="https://cal.com/unpaste/15min" class="btn-red" style="display:block; text-align:center;">Book a Call</a>
+                <a href="terms.html" style="display:block; text-align:center; margin-top:12px; font-family:'DM Mono',monospace; font-size:12px; color:var(--muted); text-decoration:none;">Ready to go? View terms & pay &rarr;</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================== NEXT STEPS ============================== -->
+<section class="next-steps section-pad reveal">
+    <div class="container">
+        <span class="label">How it works</span>
+        <h2>Four steps to go live</h2>
+        <div class="steps-grid">
+            <div class="step-item">
+                <span class="step-num">01</span>
+                <h3>Book a call</h3>
+                <p>We walk through everything together. 15 minutes, no pressure.</p>
+            </div>
+            <div class="step-item">
+                <span class="step-num">02</span>
+                <h3>Review terms</h3>
+                <p>Clear scope, simple agreement. No hidden fees or lock-in.</p>
+            </div>
+            <div class="step-item">
+                <span class="step-num">03</span>
+                <h3>Pay</h3>
+                <p>One-time payment via Stripe. $3,000 + GST.</p>
+            </div>
+            <div class="step-item">
+                <span class="step-num">04</span>
+                <h3>Handover</h3>
+                <p>Source code, hosting, brand assets — all yours within 24 hours.</p>
             </div>
         </div>
     </div>
@@ -1647,8 +1738,10 @@
 <section class="final-cta section-pad">
     <div class="container">
         <h2>Like what you see?</h2>
-        <p>Reply to this email or reach out directly. No pressure — this site exists whether you buy it or not. But we think it's worth a conversation.</p>
-        <a href="mailto:elliot@unpaste.co?subject=TIC%20Insurance%20-%20Let's%20Talk" class="btn-white">Email Elliot</a>
+        <p>15 minutes to walk through everything. No pressure — just a conversation about what's possible for TIC.</p>
+        <!-- PLACEHOLDER: Replace href with Cal.com booking URL once Elliot creates it -->
+        <a href="https://cal.com/unpaste/15min" class="btn-white">Book a Call</a>
+        <span style="display:block; margin-top:16px; font-size:13px; color:rgba(255,255,255,0.6);">or <a href="terms.html" style="color:rgba(255,255,255,0.8); text-decoration:underline; text-underline-offset:2px;">view terms and pay directly</a></span>
     </div>
 </section>
 
