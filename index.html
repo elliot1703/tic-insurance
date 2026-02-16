@@ -161,6 +161,9 @@
             text-align: center;
             padding: 120px 24px 80px;
             background: var(--charcoal);
+            background-image: url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
             position: relative;
             overflow: hidden;
         }
@@ -169,8 +172,12 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: var(--danger-stripe);
-            opacity: 0.4;
+            background: linear-gradient(
+                180deg,
+                rgba(28, 28, 30, 0.85) 0%,
+                rgba(28, 28, 30, 0.75) 50%,
+                rgba(28, 28, 30, 0.92) 100%
+            );
             pointer-events: none;
         }
 
