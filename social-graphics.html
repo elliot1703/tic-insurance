@@ -791,5 +791,30 @@
         Screenshot at native resolution for production use, or export via browser print/save.</p>
     </div>
 
+    <script>
+        // When loaded with a hash (e.g., #ig-hero), isolate that graphic for iframe embedding
+        (function() {
+            var hash = window.location.hash.replace('#', '');
+            if (!hash) return;
+            var target = document.getElementById(hash);
+            if (!target) return;
+            // Hide page chrome
+            document.querySelector('.page-header').style.display = 'none';
+            document.querySelector('.page-footer').style.display = 'none';
+            document.body.style.padding = '0';
+            // Hide labels inside the target wrapper
+            var labels = target.querySelectorAll('.graphic-label, .graphic-size');
+            for (var i = 0; i < labels.length; i++) labels[i].style.display = 'none';
+            target.style.gap = '0';
+            // Hide all other graphic wrappers
+            var wrappers = document.querySelectorAll('.graphic-wrapper');
+            for (var i = 0; i < wrappers.length; i++) {
+                if (wrappers[i].id !== hash) wrappers[i].style.display = 'none';
+            }
+            // Remove grid gap
+            document.querySelector('.graphics-grid').style.gap = '0';
+        })();
+    </script>
+
 </body>
 </html>
